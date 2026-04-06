@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { NeuroLink } from "@juspay/neurolink";
 
-import { defaultSettings, inputs, PromptSchema } from "./settings/example";
+import { inputs, PromptSchema } from "./settings/example.js";
 
 const neurolink = new NeuroLink();
 
@@ -14,4 +14,12 @@ async function structuredOutput() {
     temperature: 0.7,
     maxTokens: 500,
   });
+
+  const { answer } = JSON.parse(result.content) as Record<string,any>;
+
+  console.log(answer);
 }
+
+(async () => {
+  await structuredOutput();
+})();
