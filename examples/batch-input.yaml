@@ -1,0 +1,18 @@
+outputFilePath: ./outputs/results.txt
+inputs:
+  - What is the capital of France?
+  - What is the capital of Germany?
+  - What is the capital of Italy?
+iterationsPerInput: 3
+prefix: |
+  Answer each question concisely.
+  Provide only the city name as your response.
+examples:
+  - |
+    Q: What is the capital of Spain?
+    A: Madrid
+  - |
+    Q: What is the capital of Poland?
+    A: Warsaw
+separator: "\n"
+outputDescription: "The answer to the question."

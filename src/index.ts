@@ -2,6 +2,7 @@ import "dotenv/config";
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { NeuroLink } from "@juspay/neurolink";
 import { z } from "zod";
+import { parse } from "yaml";
 import { validateInput, InputPayload } from "./schema.js";
 
 const neurolink = new NeuroLink();
@@ -11,14 +12,15 @@ const args = process.argv.slice(2);
 const inputJsonPath = args[0];
 
 if (!inputJsonPath) {
-  console.error("Usage: npx tsx src/index.ts <input.json>");
+  console.error("Usage: npx tsx src/index.ts <input.json|input.yaml>");
   process.exit(1);
 }
 
 let inputData: InputPayload;
 try {
   const raw = readFileSync(inputJsonPath, "utf-8");
-  const parsed = JSON.parse(raw);
+  const ext = inputJsonPath.toLowerCase().endsWith(".yaml") || inputJsonPath.toLowerCase().endsWith(".yml");
+  const parsed = ext ? parse(raw) : JSON.parse(raw);
   inputData = validateInput(parsed);
 } catch (err) {
   if (err instanceof Error) {
