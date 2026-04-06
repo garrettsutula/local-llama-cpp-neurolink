@@ -14,6 +14,12 @@ export const InputSchema = {
       minItems: 1,
     },
     iterationsPerInput: { type: "integer", minimum: 1 },
+    prefix: { type: "string" },
+    examples: {
+      type: "array",
+      items: { type: "string" },
+    },
+    separator: { type: "string", default: "\n" },
   },
   required: ["outputFilePath", "inputs", "iterationsPerInput"],
   additionalProperties: false,
@@ -32,4 +38,7 @@ export interface InputPayload {
   outputFilePath: string;
   inputs: string[];
   iterationsPerInput: number;
+  prefix?: string;
+  examples?: string[];
+  separator?: string;
 }

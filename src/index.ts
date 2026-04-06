@@ -29,9 +29,19 @@ try {
   process.exit(1);
 }
 
+function buildPrompt(input: string): string {
+  const sep = inputData.separator ?? "\n";
+  const parts: string[] = [];
+  if (inputData.prefix) parts.push(inputData.prefix);
+  if (inputData.examples?.length) parts.push(inputData.examples.join(sep));
+  parts.push(input);
+  return parts.join(sep);
+}
+
 async function generateForInput(input: string): Promise<string> {
+  const text = buildPrompt(input);
   const result = await neurolink.generate({
-    input: { text: input },
+    input: { text },
     schema: PromptSchema,
     output: { format: "json" },
     provider: "openai-compatible",
