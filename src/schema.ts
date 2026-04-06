@@ -20,6 +20,7 @@ export const InputSchema = {
       items: { type: "string" },
     },
     separator: { type: "string", default: "\n" },
+    outputDescription: { type: "string", minLength: 1 },
   },
   required: ["outputFilePath", "inputs", "iterationsPerInput"],
   additionalProperties: false,
@@ -41,4 +42,5 @@ export interface InputPayload {
   prefix?: string;
   examples?: string[];
   separator?: string;
+  outputDescription: string;
 }

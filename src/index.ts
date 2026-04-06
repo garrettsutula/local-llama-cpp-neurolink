@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { NeuroLink } from "@juspay/neurolink";
-import { PromptSchema } from "./settings/example.js";
+import { z } from "zod";
 import { validateInput, InputPayload } from "./schema.js";
 
 const neurolink = new NeuroLink();
@@ -38,11 +38,17 @@ function buildPrompt(input: string): string {
   return parts.join(sep);
 }
 
+function buildPromptSchema(description: string) {
+  return z.object({
+    output: z.string().describe(description),
+  });
+}
+
 async function generateForInput(input: string): Promise<string> {
   const text = buildPrompt(input);
   const result = await neurolink.generate({
     input: { text },
-    schema: PromptSchema,
+    schema: buildPromptSchema(inputData.outputDescription),
     output: { format: "json" },
     provider: "openai-compatible",
     temperature: 0.7,
@@ -50,7 +56,7 @@ async function generateForInput(input: string): Promise<string> {
   });
 
   const parsed = JSON.parse(result.content) as Record<string, unknown>;
-  return (parsed.answer as string) ?? "";
+  return (parsed.output as string) ?? "";
 }
 
 async function run() {

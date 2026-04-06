@@ -11,5 +11,6 @@
     "Q: What is the capital of Spain?\nA: Madrid",
     "Q: What is the capital of Poland?\nA: Warsaw"
   ],
-  "separator": "\n"
+  "separator": "\n",
+  "outputDescription": "The answer to the question."
 }
