@@ -56,7 +56,7 @@ async function generateForInput(input: string): Promise<string> {
   });
 
   const parsed = JSON.parse(result.content) as Record<string, unknown>;
-  return (parsed.output as string) ?? "";
+  return (parsed[Object.keys(parsed)[0]] as string) ?? "";
 }
 
 async function run() {
@@ -75,6 +75,7 @@ async function run() {
   if (dir !== ".") mkdirSync(dir, { recursive: true });
   writeFileSync(inputData.outputFilePath, outputs.join("\n") + "\n");
   console.log(`Wrote ${outputs.length} outputs to ${inputData.outputFilePath}`);
+  process.exit(0);
 }
 
 run().catch((err) => {

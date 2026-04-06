@@ -1,16 +1,16 @@
 {
   "outputFilePath": "./outputs/results.txt",
   "inputs": [
-    "What is the capital of France?",
-    "What is the capital of Germany?",
-    "What is the capital of Italy?"
+    "In as few words as possible, What is the capital of France?",
+    "In as few words as possible, What is the capital of Germany?",
+    "In as few words as possible, What is the capital of Italy?"
   ],
   "iterationsPerInput": 3,
   "prefix": "Answer each question concisely.",
   "examples": [
-    "Q: What is the capital of Spain?\nA: Madrid",
-    "Q: What is the capital of Poland?\nA: Warsaw"
+    "Q: What is the capital of Spain?\n{\"output\": \"Madrid\"}",
+    "Q: What is the capital of Poland?\n{\"output\": \"Warsaw\"}"
   ],
-  "separator": "\n",
+  "separator": "\n---\n",
   "outputDescription": "The answer to the question."
 }
