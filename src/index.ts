@@ -1,6 +1,5 @@
 import "dotenv/config";
-import { readFileSync } from "fs";
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { NeuroLink } from "@juspay/neurolink";
 import { PromptSchema } from "./settings/example.js";
 import { validateInput, InputPayload } from "./schema.js";
@@ -56,6 +55,8 @@ async function run() {
     }
   }
 
+  const dir = inputData.outputFilePath.replace(/[/\\][^/\\]*$/, "") || ".";
+  if (dir !== ".") mkdirSync(dir, { recursive: true });
   writeFileSync(inputData.outputFilePath, outputs.join("\n") + "\n");
   console.log(`Wrote ${outputs.length} outputs to ${inputData.outputFilePath}`);
 }
